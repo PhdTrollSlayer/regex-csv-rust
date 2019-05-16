@@ -1,0 +1,14 @@
+[package]
+name = "regex-csv"
+version = "0.1.0"
+authors = ["PhdTrollSlayer <rodrigomauricio@protonmail.com>"]
+edition = "2018"
+
+[dependencies]
+csv = "1"
+serde = "*"
+serde_derive = "*"
+regex = "1.1.6"
+scraper = "*"
+reqwest = "0.9.16"
+
