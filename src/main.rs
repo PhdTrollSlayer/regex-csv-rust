@@ -34,19 +34,19 @@ fn scrape(rgx: &mut Vec<Item>) {
         );
     }
 
-    let mut output = String::new();
-
     for (i,l) in links.iter().enumerate() {
-        if i > 5  {break}
+        if i > 10  {break}
         if !l.is_empty() && l.starts_with("http") {
-            let loader = reqwest::get(l).unwrap().text().unwrap();
-            output.push_str(&String::from(loader));
-        }
-    }
+            let loader = match reqwest::get(l){
+                Ok(mut s) => s.text().unwrap(),
+                Err(_) => String::new(),
+            };
 
-    for e in rgx.iter_mut() {
-        for _ in e.rgx.clone().unwrap().find_iter(&output) {
-            e.qtd += 1;
+            for e in rgx.iter_mut() {
+                for _ in e.rgx.clone().unwrap().find_iter(&loader) {
+                    e.qtd += 1;
+                }
+            }
         }
     }
 
